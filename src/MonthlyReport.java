@@ -7,20 +7,18 @@ import java.util.ArrayList;
 public class MonthlyReport {
    ArrayList<MReport> mRows = new ArrayList<>();
 
-   public MonthlyReport(String path){
+   public void readMonthReport(String path){
       String content = readFileContentsOrNull(path);
       String[] lines = content.split("\r?\n");
       for(int i = 1; i < lines.length; i++){
-         String[]line = lines[i].split(",");
-         String itemName = line[0];
-         boolean isExpense = Boolean.parseBoolean(line[1]);
-         int quantity = Integer.parseInt(line[2]);
-         int sumOfOne = Integer.parseInt(line[3]);
-
+         String[] part = lines[i].split(",");
+         String itemName = part[0];
+         boolean isExpense = Boolean.parseBoolean(part[1]);
+         int quantity = Integer.parseInt(part[2]);
+         int sumOfOne = Integer.parseInt(part[3]);
          MReport mReport = new MReport(itemName, isExpense, quantity, sumOfOne);
+
          mRows.add(mReport);
-         // или 220720_1654
-         // mRows.add(new MReport(itemName, isExpense, quantity, sumOfOne));
       }
    }
 

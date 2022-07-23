@@ -3,23 +3,20 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-public class YearReport {
-
+public class YearlyReport {
     int year;
     ArrayList<YReport> yRows = new ArrayList<>();
 
-    public YearReport(int year, String path){
-        this.year = year;
-        String content = readFileContentsOrNull(path);
-        String[] lines = content.split("\r?\n");
+    public void readYearReport(String path){
+        String fileContents = readFileContentsOrNull(path);
+        String[] lines = fileContents.split("\r?\n");
         for(int i = 1; i < lines.length; i++){
-            String[] parts = lines[i].split(",");
-            int month = Integer.parseInt(parts[0]);
-            int amount = Integer.parseInt(parts[1]);
-            boolean isExpense = Boolean.parseBoolean(parts[2]);
-
+            String[] line = lines[i].split(",");
+            int month = Integer.parseInt(line[0]);
+            int amount = Integer.parseInt(line[1]);
+            boolean isExpense = Boolean.parseBoolean(line[2]);
             YReport yReport = new YReport(month, amount, isExpense);
-            //yRows.add(new YReport(month, amount, isExpense));
+
             yRows.add(yReport);
         }
     }
@@ -59,7 +56,6 @@ public class YearReport {
         return inSum/ yRows.size();
     }
 
-
     public int expensesPerMonth(int month){
         int expInMonth = 0;
         for(YReport yReport : yRows){
@@ -86,7 +82,6 @@ public class YearReport {
         return incInMonth;
     }
 
-
     public String readFileContentsOrNull(String path)
     {
         try {
@@ -96,5 +91,4 @@ public class YearReport {
             return null;
         }
     }
-
 }

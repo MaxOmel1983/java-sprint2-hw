@@ -4,6 +4,7 @@ public class MReport {
     int quantity;
     int sumOfOne;
 
+
     MReport(String itemName, boolean isExpense, int quantity, int sumOfOne){
         this.itemName = itemName;
         this.isExpense = isExpense;
