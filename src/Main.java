@@ -18,25 +18,21 @@ public class Main {
             if(command == 1){
                 int monthsNumber = 3;
 
-                // вывести в отдельный класс ??? //
                 for(int i = 1; i <= monthsNumber; i++){
                     String dataPath = "resources/m.20210" + i + ".csv";
                     MonthlyReport monthlyReport = new MonthlyReport();
                     monthlyReport.readMonthReport(dataPath);
                     yearByMonthReport.put(i, monthlyReport);
                 }
-                //////
 
                 System.out.println("Месячные отчеты загружены.");
                 isMonthReportDownload = true;
             }else if(command == 2){
                 int yearNumber = 2021;
 
-                // вывести в отдельный класс //
                 String yearPath = "resources/y." + yearNumber + ".csv";
                 yearReport.year = yearNumber;
                 yearReport.readYearReport(yearPath);
-                //////
 
                 System.out.println("Годовые отчеты загружены.");
                 isYearReportDownload = true;
@@ -47,19 +43,6 @@ public class Main {
 
                     compareReports(yearReport, yearByMonthReport, isReportCorrect);
 
-                    /*boolean isReportCorrect = true;
-
-                    for(int i = 1; i <= yearByMonthReport.size(); i++){
-                        if((yearReport.expensesPerMonth(i) != yearByMonthReport.get(i).getSumExpenses()) ||
-                                (yearReport.incomePerMonth(i) != yearByMonthReport.get(i).getSumIncome())){
-                            isReportCorrect = false;
-                            System.out.println("В " + fromNumToMonth(i) + " несоответсчтвие годового отчета месячному.");
-                        }
-                    }
-                    if(isReportCorrect){
-                        System.out.println("В результате проведения сверки годового и месячного отчета ошибок не обнаружено. Поздравляем!!!");
-                    }*/
-
                 }else{
                     System.out.println("Загрузите годовые и месячные отчеты.");
                 }
@@ -67,15 +50,7 @@ public class Main {
             }else if(command == 4){
                 if(isMonthReportDownload == true){
 
-                    // 30.07
                     printMonthReport(yearByMonthReport);
-
-                    /*for (int i = 1; i <= yearByMonthReport.size(); i++) {
-                        System.out.println("В " + fromNumToMonth(i) + " самым прибыльным товаром был " + yearByMonthReport.get(i).maxIncome().keySet()
-                                + ", сумма прибыли по нему составила: " + yearByMonthReport.get(i).maxIncome().values() + ";");
-                        System.out.println("В " + fromNumToMonth(i) + ", самаой большой тратой была " + yearByMonthReport.get(i).maxExpense().keySet()
-                                + ", сумма трат по нему составила: " + yearByMonthReport.get(i).maxExpense().values() + ";");
-                    }*/
 
                 }else{
                     System.out.println("Загрузите месячные отчеты.");
@@ -84,17 +59,9 @@ public class Main {
             }else if(command == 5){
                 if(isYearReportDownload == true){
 
-                    // 30.07
                     printYearReport(yearReport);
 
-                    /*System.out.println("В " + yearReport.year + " году прибыль по каждому месяцу составила: ");
-                    for(int i = 1; i <= yearReport.yRows.size(); i++) {
-                        System.out.println("В " + fromNumToMonth(i) + " прибыль составила " + yearReport.getProfit(i) + ";");
-                    }
-                    System.out.println("Средний доход за все месяцы составил " + yearReport.getAverageIncome() + ";");
-                    System.out.println("Средний расход за все месяцы составил " + yearReport.getAverageExpense() + ";");*/
-
-                }else{
+            }else{
                     System.out.println("Загрузите годовые отчеты.");
                 }
 
@@ -118,8 +85,6 @@ public class Main {
 
     public static void compareReports(YearlyReport yearReport, HashMap<Integer, MonthlyReport> yearByMonthReport, boolean isReportCorrect){
 
-        //for(int i = 1; i <= yearByMonthReport.size(); i++){
-        // 30.07  эксперимент - так логичнее
         for(int i = 1; i <= yearReport.yRows.size()/2; i++){
                 if((yearReport.expensesPerMonth(i) != yearByMonthReport.get(i).getSumExpenses()) ||
                     (yearReport.incomePerMonth(i) != yearByMonthReport.get(i).getSumIncome())){
@@ -130,17 +95,9 @@ public class Main {
         if(isReportCorrect){
             System.out.println("В результате проведения сверки годового и месячного отчета ошибок не обнаружено. Поздравляем!!!");
         }
-
     }
 
     public static void printMonthReport(HashMap<Integer, MonthlyReport> yearByMonthReport){
-        // меняем HashMap на Class
-        /*for (int i = 1; i <= yearByMonthReport.size(); i++) {
-            System.out.println("В " + fromNumToMonth(i) + " самым прибыльным товаром был " + yearByMonthReport.get(i).maxIncome().keySet()
-                    + ", сумма прибыли по нему составила: " + yearByMonthReport.get(i).maxIncome().values() + ";");
-            System.out.println("В " + fromNumToMonth(i) + " самой большой тратой была " + yearByMonthReport.get(i).maxExpense().keySet()
-                    + ", сумма трат по нему составила: " + yearByMonthReport.get(i).maxExpense().values() + ";");
-        }*/
 
         for (int i = 1; i <= yearByMonthReport.size(); i++) {
             System.out.println("В " + fromNumToMonth(i) + " самым прибыльным товаром был " + yearByMonthReport.get(i).maxIncome().name
@@ -151,7 +108,6 @@ public class Main {
     }
 
     public static void printYearReport(YearlyReport yearReport){
-        // 30.07 yearReport.yRows.size() / 2 - разделил на 2 потому, что каждый месяц занимает 2 строки
 
         System.out.println("В " + yearReport.year + " году прибыль по каждому месяцу составила: ");
         for(int i = 1; i <= yearReport.yRows.size() / 2; i++) {

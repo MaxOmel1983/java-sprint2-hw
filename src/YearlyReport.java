@@ -9,7 +9,6 @@ public class YearlyReport {
 
     public void readYearReport(String path){
         String fileContents = readFileContentsOrNull(path);
-        //String[] lines = fileContents.split("\r?\n");
         String[] lines = fileContents.split(System.lineSeparator());
         for(int i = 1; i < lines.length; i++){
             String[] line = lines[i].split(",");
@@ -44,7 +43,6 @@ public class YearlyReport {
                 inSum += yReport.amount;
             }
         }
-        // замечание 2
         return inSum/ yRows.size() / 2;
     }
 
@@ -55,7 +53,6 @@ public class YearlyReport {
                 exSum += yReport.amount;
             }
         }
-        // замечание 2
         return exSum/ yRows.size() / 2;
     }
 
