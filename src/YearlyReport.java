@@ -9,7 +9,8 @@ public class YearlyReport {
 
     public void readYearReport(String path){
         String fileContents = readFileContentsOrNull(path);
-        String[] lines = fileContents.split("\r?\n");
+        //String[] lines = fileContents.split("\r?\n");
+        String[] lines = fileContents.split(System.lineSeparator());
         for(int i = 1; i < lines.length; i++){
             String[] line = lines[i].split(",");
             int month = Integer.parseInt(line[0]);
@@ -37,23 +38,25 @@ public class YearlyReport {
     }
 
     public double getAverageIncome(){
-        Double exSum = 0.0;
-        for(YReport yReport : yRows){
-            if(yReport.isExpense){
-                exSum += yReport.amount;
-            }
-        }
-        return exSum/ yRows.size();
-    }
-
-    public double getAverageExpense(){
         Double inSum = 0.0;
         for(YReport yReport : yRows){
             if(!yReport.isExpense){
                 inSum += yReport.amount;
             }
         }
-        return inSum/ yRows.size();
+        // замечание 2
+        return inSum/ yRows.size() / 2;
+    }
+
+    public double getAverageExpense(){
+        Double exSum = 0.0;
+        for(YReport yReport : yRows){
+            if(yReport.isExpense){
+                exSum += yReport.amount;
+            }
+        }
+        // замечание 2
+        return exSum/ yRows.size() / 2;
     }
 
     public int expensesPerMonth(int month){

@@ -9,7 +9,8 @@ public class MonthlyReport {
 
    public void readMonthReport(String path){
       String content = readFileContentsOrNull(path);
-      String[] lines = content.split("\r?\n");
+      //String[] lines = content.split("\r?\n");
+      String[] lines = content.split(System.lineSeparator());
       for(int i = 1; i < lines.length; i++){
          String[] part = lines[i].split(",");
          String itemName = part[0];
@@ -22,8 +23,10 @@ public class MonthlyReport {
       }
    }
 
-   public HashMap<String, Integer> maxExpense(){
-      HashMap<String, Integer> maxExpNameAndSum = new HashMap<>();
+   // !!! поменять HashMap на класс  // 30.07
+   public NameAmount maxExpense(){
+      //public HashMap<String, Integer> maxExpense(){                         //30.07
+      //HashMap<String, Integer> maxExpNameAndSum = new HashMap<>();          //30.07
       String maxExpenseName = "";
       int maxExpenseSum = 0;
       for(MReport mReport : mRows){
@@ -34,13 +37,17 @@ public class MonthlyReport {
             }
          }
       }
-      maxExpNameAndSum.put(maxExpenseName, maxExpenseSum);
-
-      return maxExpNameAndSum;
+      NameAmount nameAmount = new NameAmount(maxExpenseName, maxExpenseSum);
+      //maxExpNameAndSum.put(maxExpenseName, maxExpenseSum);                  //30.07
+      //return maxExpNameAndSum;                                              //30.07
+      return nameAmount;
    }
 
-   public HashMap<String, Integer> maxIncome(){
-      HashMap<String, Integer> maxIncNameAndSum = new HashMap<>();
+   // !!! поменять HashMap на класс  // 30.07
+   public NameAmount maxIncome(){
+      //public HashMap<String, Integer> maxIncome(){                          // 30.07
+      //HashMap<String, Integer> maxIncNameAndSum = new HashMap<>();          // 30.07
+
       String maxIncomeName = "";
       int maxIncomeSum = 0;
       for(MReport mReport : mRows){
@@ -51,9 +58,10 @@ public class MonthlyReport {
             }
          }
       }
-      maxIncNameAndSum.put(maxIncomeName, maxIncomeSum);
-
-      return maxIncNameAndSum;
+      //maxIncNameAndSum.put(maxIncomeName, maxIncomeSum);                   // 30.07
+      //return maxIncNameAndSum;                                             // 30.07
+      NameAmount nameAmount = new NameAmount(maxIncomeName, maxIncomeSum);
+      return nameAmount;
    }
 
 
