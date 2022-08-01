@@ -7,10 +7,10 @@ public class YearlyReport {
     int year;
     ArrayList<YReport> yRows = new ArrayList<>();
 
-    public void readYearReport(String path){
+    public void readYearReport(String path) {
         String fileContents = readFileContentsOrNull(path);
         String[] lines = fileContents.split(System.lineSeparator());
-        for(int i = 1; i < lines.length; i++){
+        for (int i = 1; i < lines.length; i++) {
             String[] line = lines[i].split(",");
             int month = Integer.parseInt(line[0]);
             int amount = Integer.parseInt(line[1]);
@@ -21,10 +21,10 @@ public class YearlyReport {
         }
     }
 
-    public int getProfit(int month){
+    public int getProfit(int month) {
         int mExpense = 0;
         int mIncome = 0;
-        for(YReport yReport : yRows) {
+        for (YReport yReport : yRows) {
             if (yReport.month == month) {
                 if (yReport.isExpense) {
                     mExpense = yReport.amount;
@@ -36,31 +36,31 @@ public class YearlyReport {
         return mIncome - mExpense;
     }
 
-    public double getAverageIncome(){
+    public double getAverageIncome() {
         Double inSum = 0.0;
-        for(YReport yReport : yRows){
-            if(!yReport.isExpense){
+        for (YReport yReport : yRows) {
+            if (!yReport.isExpense) {
                 inSum += yReport.amount;
             }
         }
-        return inSum/ yRows.size() / 2;
+        return inSum / yRows.size() / 2;
     }
 
-    public double getAverageExpense(){
+    public double getAverageExpense() {
         Double exSum = 0.0;
-        for(YReport yReport : yRows){
-            if(yReport.isExpense){
+        for (YReport yReport : yRows) {
+            if (yReport.isExpense) {
                 exSum += yReport.amount;
             }
         }
-        return exSum/ yRows.size() / 2;
+        return exSum / yRows.size() / 2;
     }
 
-    public int expensesPerMonth(int month){
+    public int expensesPerMonth(int month) {
         int expInMonth = 0;
-        for(YReport yReport : yRows){
-            if(yReport.month == month){
-                if(yReport.isExpense){
+        for (YReport yReport : yRows) {
+            if (yReport.month == month) {
+                if (yReport.isExpense) {
                     expInMonth = yReport.amount;
                     break;
                 }
@@ -69,11 +69,11 @@ public class YearlyReport {
         return expInMonth;
     }
 
-    public int incomePerMonth(int month){
+    public int incomePerMonth(int month) {
         int incInMonth = 0;
-        for(YReport yReport : yRows){
-            if(yReport.month == month){
-                if(!yReport.isExpense){
+        for (YReport yReport : yRows) {
+            if (yReport.month == month) {
+                if (!yReport.isExpense) {
                     incInMonth = yReport.amount;
                     break;
                 }
@@ -82,8 +82,7 @@ public class YearlyReport {
         return incInMonth;
     }
 
-    public String readFileContentsOrNull(String path)
-    {
+    public String readFileContentsOrNull(String path) {
         try {
             return Files.readString(Path.of(path));
         } catch (IOException e) {
